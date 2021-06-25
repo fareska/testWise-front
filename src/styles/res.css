@@ -1,0 +1,6 @@
+.cardBody {
+    background-image: url('../images/cards.png');
+    background-repeat: no-repeat;
+
+    text-align: center;
+}
