@@ -13,7 +13,7 @@ export default class Restaurants extends Component {
         this.state = {
             allRestaurants: [],
             hasMenu: false,
-            page: 0,
+            page: 1,
             totalPages: 0,
             isAdmin: true
         }
@@ -23,22 +23,24 @@ export default class Restaurants extends Component {
 
     getRestaurants = async () => {
         const response = await apiManager.getRestaurants(this.state.page, this.state.hasMenu);
-        const totalPages = Math.ceil((response[1][0]["COUNT (*)"])/3)
+        const totalPages = Math.ceil((response[1][0]["COUNT (*)"])/3);
         this.setState({ allRestaurants: response[0], totalPages });
     }
 
     rightPage = () => {
-        let page = this.state.page + 1;
-        this.setState({ page }, () => this.getRestaurants());
+        if(this.state.page < this.state.totalPages){
+            let page = this.state.page + 1;
+            this.setState({ page }, () => this.getRestaurants());
+        };
     }
     leftPage = () => {
-        if (this.state.page - 1 >= 0) {
+        if (this.state.page - 1 > 0) {
             let page = this.state.page - 1;
             this.setState({ page }, () => this.getRestaurants());
         };
     }
 
-    checkboxHandler = () => this.setState({ hasMenu: !this.state.hasMenu });
+    checkboxHandler = () => this.setState({ hasMenu: !this.state.hasMenu }, ()=>this.getRestaurants());
 
     render() {
         return (
@@ -66,14 +68,3 @@ export default class Restaurants extends Component {
     }
 }
 
-
-    // getRestaurants = async () => {
-    //     if (this.state.hasMenu === false) {
-    //         const response = await axios.get(`http://localhost:3200/restaurants/${this.state.page}`)
-    //         this.setState({ allRestaurants: response.data })
-    //     } else {
-    //         const response = await axios.get(`http://localhost:3200/restaurants/${this.state.page}/?hasMenu=true`)
-    //         this.setState({ allRestaurants: response.data })
-
-    //     }
-    // }
