@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Restaurant from './Restaurant';
 import { InputGroup } from 'react-bootstrap';
 import ApiManager from '../../ApiManager';
+import { ChevronCompactRight, ChevronCompactLeft } from 'react-bootstrap-icons';
 const apiManager = new ApiManager();
 
 export default class Restaurants extends Component {
@@ -13,6 +14,7 @@ export default class Restaurants extends Component {
             allRestaurants: [],
             hasMenu: false,
             page: 0,
+            totalPages: 0,
             isAdmin: true
         }
     }
@@ -21,7 +23,8 @@ export default class Restaurants extends Component {
 
     getRestaurants = async () => {
         const response = await apiManager.getRestaurants(this.state.page, this.state.hasMenu);
-        this.setState({ allRestaurants: response });
+        const totalPages = Math.ceil((response[1][0]["COUNT (*)"])/3)
+        this.setState({ allRestaurants: response[0], totalPages });
     }
 
     rightPage = () => {
@@ -40,15 +43,16 @@ export default class Restaurants extends Component {
     render() {
         return (
             <div id="container" >
-                <div>
+                <div >
                     <InputGroup style={{ padding: '0px 0px 0px 10px' }} className="mb-3">
                         <InputGroup.Checkbox onClick={this.checkboxHandler} aria-label="Checkbox for following text input" />
                         Show all / only with menu
                     </InputGroup>
-                    <div>
-                        <button className="pageButton" onClick={this.leftPage} >click left</button>
-                        <div id="pageNumber" > {this.state.page} </div>
-                        <button className="pageButton" onClick={this.rightPage} >click right</button>
+
+                    <div id="pageContainer" >
+                        <div className="pageButton" onClick={this.leftPage} ><ChevronCompactLeft /></div>
+                        <div id="pageNumber" > {this.state.page} /{this.state.totalPages} </div>
+                        <div className="pageButton" onClick={this.rightPage} ><ChevronCompactRight /></div>
                     </div>
                 </div>
 

@@ -28,7 +28,18 @@ body {
     margin: 0px 9px;
 }
 
-.pageButton{
+.pageButton {
     display: inline; 
     margin: 0px 9px;
+    font-size: 30px;
+}
+
+.pageButton:hover {
+    color: rgb(3, 66, 124);
+}
+
+#pageContainer {
+    position: absolute;
+    right: 5%;
+    top: 0px;
 }
