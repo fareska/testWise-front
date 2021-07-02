@@ -1,6 +1,34 @@
-.cardBody {
-    background-image: url('../images/cards.png');
-    background-repeat: no-repeat;
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,300&display=swap');
 
+.cardBody {
+    background-color: rgb(10,66,89);
     text-align: center;
+    margin: 10px 10px;
+    height: auto;
+    color: white;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+}
+
+.button{
+    text-decoration: none;
+    background-color: rgb(54, 170, 223);
+}
+
+#container {
+        padding: 10px 0px;
+        background-image: linear-gradient(to bottom right, rgb(17,99,138), rgb(91,203,245));
+        color: white;
+}
+
+#pageNumber {
+    display: inline; 
+    margin: 0px 9px;
+}
+
+.pageButton{
+    display: inline; 
+    margin: 0px 9px;
 }
