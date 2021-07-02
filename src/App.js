@@ -1,13 +1,13 @@
 import './App.css';
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 
 import SignIn from './Components/SignIn'
-import Restaurants from './Components/Restaurants'
-import Menu from './Components/Menu';
-import EditMenu from './Components/EditMenu';
+// import Error from './Components/Error'
+import Restaurants from './Components/Home/Restaurants'
+import Menu from './Components/Details/Menu';
+import Edit from './Components/Edit/Edit';
 
-const axios = require('axios')
 
 class App extends Component {
 
@@ -16,43 +16,28 @@ class App extends Component {
     this.state = {
       user: '',
       allRestaurants: [],
-      menu: {},
+      menu: { items: [] },
       update: [],
     }
   }
 
-  componentDidMount = async () => this.getRestaurants()
-  
-
-  getUser = (email) => this.setState({user: email})
-  
-
-  getRestaurants = async () => {
-    const response = await axios.get("http://localhost:3200/restaurants")
-    this.setState({ allRestaurants: response.data })
-  }
-
-  getMenuResId = async (resId) => {
-    const response = await axios.get(`http://localhost:3200/menu/${resId}`)
-    this.setState({ menu: response.data })
-  }
+  getUser = (email) => this.setState({ user: email })
 
   dataToUpdate = async (object) => {
-    let updateArr = [...this.state.update]
-    updateArr.push(object)
-    this.setState({update: updateArr})
+    let updateArr = [...this.state.update];
+    updateArr.push(object);
+    this.setState({ update: updateArr });
   }
-
 
   render() {
 
     return (
       <div >
         <Router>
-          <Route exact path='/' render={() => <SignIn getUser={this.getUser} />} />
-          <Route path='/restaurants' exact render={() => <Restaurants data={this.state.allRestaurants} getMenuResId={this.getMenuResId} />} />
-          <Route exact path='/menu/:id' render={({ match }) => <Menu user={this.state.user} manager={this.state.allRestaurants.find(r => r.res_id == match.params.id)} match={match} getMenuResId={this.getMenuResId} menu={this.state.menu} />} />
-          <Route exact path='/edit' render={() => <EditMenu update={this.dataToUpdate} menu={this.state.menu} />} />
+          <Route path='/' exact render={() => <SignIn getUser={this.getUser} />} />
+          <Route path='/restaurants/:page' exact render={({ match }) => <Restaurants match={match} />} />
+          <Route path='/menu/:id' exact render={({ match }) => <Menu match={match} />} />
+          <Route path='/edit/:id' exact render={({ match }) => <Edit update={this.dataToUpdate} match={match} menu={this.state.menu} />} />
         </Router>
       </div>
     );
@@ -60,3 +45,33 @@ class App extends Component {
 }
 
 export default App;
+
+          // {/* <Route path='/404' exact render={({ }) => <Error />} /> */}
+          // {/* <Switch>
+          // <Redirect to='/restaurants/0' render={({  }) => <Restaurants   />} />
+          // </Switch> */}
+
+  // getMenuResId = async (resId) => {
+    // try {
+    //   const response = await axios.get(`http://localhost:3200/menu/${resId}?isAdmin=true`)
+    //   this.setState({ menu: response.data })
+    // } catch (err) {
+    //     console.log(err);
+    //     console.log("HIII")
+    //     return (
+    //       <Redirect exact to='/404' render={() => <Error />}/>
+    //     ) 
+    // }
+
+
+
+
+  //   const response = await axios.get(`http://localhost:3200/menu/${resId}?isAdmin=true`)
+  //   if (response.status !== 200) {
+  //     console.error(`Did not get an OK from the server. Code: ${response.statusCode}`);
+  //     // response.resume();
+  //     return;
+  //   }else {
+  //     this.setState({ menu: response.data })
+  //   }
+  // }

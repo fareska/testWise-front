@@ -1,0 +1,17 @@
+#editContainer {
+    background-image: url('../images/edit.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    min-height: 100vw;
+}
+
+#nestedContainer {
+    color: red;
+    height: 100vw; 
+    text-align: center;
+    background-color: white;
+    opacity: 0.85; 
+    border: none; 
+    width: 90%; 
+    margin: auto; 
+}

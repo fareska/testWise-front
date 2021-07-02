@@ -1,0 +1,12 @@
+.background{
+    background-image: url('../images/menu.jpg');
+    background-size: 100%;
+    min-height: 100vw;
+}
+
+#cardContainer {
+    color: 'black';
+    text-align: 'center';
+    background-color: 'rgb(183,197,184)';
+    border: 'none' ;
+}
