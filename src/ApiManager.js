@@ -11,10 +11,9 @@ class ApiManager {
     getMenu = async (resId) => {
         try {
             const menu = await axios.get(`http://localhost:3200/menu/${resId}`);
-            // const menu = await axios.get(`${this.sPath}/menu/${resId}?isAdmin=${isAdmin}`);
-            return menu.data
+            return menu.data;
         } catch (error) {
-            return error
+            return error.response.data;
         }
     }
 
