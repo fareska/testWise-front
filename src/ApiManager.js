@@ -1,4 +1,4 @@
-const axios = require('axios')
+const axios = require('axios');
 
 class ApiManager {
     constructor() {
@@ -22,18 +22,18 @@ class ApiManager {
             const restaurants = await axios.get(`http://localhost:3200/restaurants/${page}/?hasMenu=${hasFilter}`);
             return restaurants.data
         } catch (error) {
-            return error
+            return error;
         }
     }
 
-    // getEditMenu = async (resId, isAdmin) => {
-    //     try {
-    //         const restaurants = await axios.get(`http://localhost:3200/menu/edit/${resId}/?isAdmin=${isAdmin}`);
-    //         return restaurants.data
-    //     } catch (error) {
-    //         return error
-    //     }
-    // }
+    getEditMenu = async (resId, isAdmin) => {
+        try {
+            const restaurants = await axios.get(`http://localhost:3200/menu/edit/${resId}/?isAdmin=${isAdmin}`);
+            return restaurants.data
+        } catch (error) {
+            return error.response.data;
+        }
+    }
 
 }
 

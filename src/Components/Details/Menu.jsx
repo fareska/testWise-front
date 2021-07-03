@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, ListGroup, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import MenuItem from './MenuItem';
-import ApiManager from '../../ApiManager';
 import Error from '../Error';
+import ApiManager from '../../ApiManager';
 const apiManager = new ApiManager();
 
 export default class Menu extends Component {

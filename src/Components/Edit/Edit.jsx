@@ -5,6 +5,7 @@ import SelectTextInput from './SelectTextInput';
 import SelectNumInput from './SelectNumInput';
 import Button from 'react-bootstrap/Button';
 import ApiManager from '../../ApiManager';
+import Error from '../Error';
 const apiManager = new ApiManager();
 const axios = require('axios');
 
@@ -20,28 +21,19 @@ export default class Edit extends Component {
             newValue: '',
             display: false,
             updateStatus: '',
-            error: ''
-        }
-    }
-
-    getEditMenu = async (resId, isAdmin) => {
-        try {
-            const response = await axios.get(`http://localhost:3200/menu/edit/${resId}/?isAdmin=${isAdmin}`);
-            this.setState({ menu: response.data });
-        } catch (error) {
-            const res = error.response.data;
-            this.setState({ error: res }, () => {
-                console.log(this.state);
-                debugger
-            })
-            return error
+            errMessage: ''
         }
     }
 
     componentDidMount = async () => {
-        await this.getEditMenu(this.props.match.params.id, this.state.isAdmin);
-        let selectOptions = this.generateSelectDropDown();
-        this.setState({ selectOptions });
+        const res = await apiManager.getEditMenu(this.props.match.params.id, this.props.isAdmin);
+        if (res === 'Unauthorized' || res === 'Not Found' || res === 'Forbidden') {
+            this.setState({ errMessage: res });
+        } else {
+            this.setState({ menu: res });
+            let selectOptions = this.generateSelectDropDown();
+            this.setState({ selectOptions });
+        };
     }
 
     getSelectedVal = (selectValue) => this.setState({ selectValue, display: true, newValue: '', updateStatus: '' });
@@ -95,14 +87,17 @@ export default class Edit extends Component {
 
         return (
             <div id='editContainer'>
-                <div id='nestedContainer'>
-                    <Select selectVal={this.getSelectedVal} selectValue={this.state.selectValue} select={this.state.selectOptions} />
-                    {this.state.display ? this.handleInputDisplay() : null}
-                    {this.state.display
-                        ? <Button onClick={this.updateData} variant="outline-secondary">Confirm Changes</Button>
-                        : null}
-                    {this.state.updateStatus !== '' && <div>{this.state.updateStatus}</div>}
-                </div>
+                {this.state.errMessage.length > 0
+                    ? <Error err={this.state.errMessage} />
+                    : <div id='nestedContainer'>
+                        <Select selectVal={this.getSelectedVal} selectValue={this.state.selectValue} select={this.state.selectOptions} />
+                        {this.state.display ? this.handleInputDisplay() : null}
+                        {this.state.display
+                            ? <Button onClick={this.updateData} variant="outline-secondary">Confirm Changes</Button>
+                            : null}
+                        {this.state.updateStatus !== '' && <div>{this.state.updateStatus}</div>}
+                    </div>
+                }
             </div>
         )
     }
@@ -115,5 +110,17 @@ export default class Edit extends Component {
     //         this.setState({ menu: res })
     //     } catch (err) {
     //         console.log('I got the catch',err);
+    //     }
+    // }
+
+        // getEditMenu = async (resId, isAdmin) => {
+    //     try {
+    //         const response = await axios.get(`http://localhost:3200/menu/edit/${resId}/?isAdmin=${this.props.isAdmin}`);
+    //         this.setState({ menu: response.data });
+    //     } catch (error) {
+    //         const res = error.response.data;
+    //         debugger
+    //         this.setState({ error: res });
+    //         return error
     //     }
     // }

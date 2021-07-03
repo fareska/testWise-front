@@ -39,10 +39,14 @@ export default function SelectNumInput(props) {
     let val = event.target.value;
     if (isNumber(val)) { 
       const i = val.indexOf('.');
-      val = val.slice(0, (i+3))
-      props.getNewVal(val) 
+      if(i !== -1){
+        val = val.slice(0, (i+3));
+        props.getNewVal(val); 
+      }else {
+        props.getNewVal(val);
+      }
     }
-    else { props.getNewVal('') };
+    else props.getNewVal('');
   }
 
   return (
