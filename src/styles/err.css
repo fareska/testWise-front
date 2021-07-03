@@ -1,4 +1,4 @@
-#container {
+#errContainer {
     color: crimson;
     background-color: grey;
     position: absolute;
@@ -13,4 +13,4 @@
     padding: auto;
     background-color:black;
     height: 50%;   
-}
+} 

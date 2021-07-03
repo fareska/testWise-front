@@ -37,7 +37,11 @@ export default function SelectNumInput(props) {
 
   const handleChange = (event) => {
     let val = event.target.value;
-    if (isNumber(val)) { props.getNewVal(val) }
+    if (isNumber(val)) { 
+      const i = val.indexOf('.');
+      val = val.slice(0, (i+3))
+      props.getNewVal(val) 
+    }
     else { props.getNewVal('') };
   }
 

@@ -6,13 +6,13 @@ export default class Error extends Component {
         let err = this.props.err;
 
         return (
-            <div id="container">
+            <div id="errContainer">
                 <div id="textContainer">
-                {
-                    err === "Restaurant doesn't exist"
-                    ? "Restaurant doesn't exist" 
-                    : "Page Not Found - ERROR 404"
-                }
+                    {
+                        err === "Restaurant doesn't exist"
+                            ? "Restaurant doesn't exist"
+                            : "Page Not Found - ERROR 404"
+                    }
                 </div>
             </div>
         )

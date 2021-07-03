@@ -1,4 +1,5 @@
 import '../../styles/menu.css';
+import Loader from "react-loader-spinner";
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, ListGroup, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
@@ -34,7 +35,12 @@ export default class Menu extends Component {
             <div className='background' >
                 <div style={{ margin: '0px 100px', paddingTop: '100px' }}>
                     {this.state.loading
-                        ? 'Loding...'
+                        ? <Loader
+                            type="Circles"
+                            color="#00BFFF"
+                            height={80}
+                            width={80}
+                        />
                         : this.state.errMessage.length > 1
                             ? <Error err={this.state.errMessage} />
                             : <Card className='cardContainer' style={{ color: 'black', textAlign: 'center', backgroundColor: '#000000', opacity: '0.7', border: 'none' }} >
