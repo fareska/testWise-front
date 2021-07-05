@@ -14,7 +14,6 @@ export default class Menu extends Component {
         super()
         this.state = {
             loading: true,
-            isAdmin: true,
             menu: {},
             resId: '',
             errMessage: ''
@@ -53,19 +52,11 @@ export default class Menu extends Component {
                                 </ListGroup>
 
                                 <Card.Body>
-                                    {this.state.isAdmin
-                                        ? <Button variant="primary">
-                                            <Link style={{ color: 'white' }} to={`/edit/${this.state.resId}`}>
-                                                Edit Menu
-                                            </Link>
-                                        </Button>
-
-                                        : <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Only admin allowed to edit the menu!</Tooltip>}>
-                                            <span className="d-inline-block">
-                                                <Button disabled style={{ pointerEvents: 'none' }}>Edit menu </Button>
-                                            </span>
-                                        </OverlayTrigger>
-                                    }
+                                    <Button variant="primary">
+                                        <Link style={{ color: 'white' }} to={`/edit/${this.state.resId}`}>
+                                            Edit Menu
+                                        </Link>
+                                    </Button>
                                 </Card.Body>
                             </Card>
                     }

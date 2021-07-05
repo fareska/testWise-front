@@ -15,7 +15,6 @@ export default class Edit extends Component {
     constructor() {
         super()
         this.state = {
-            isAdmin: true,
             menu: {},
             selectOptions: [],
             selectValue: {},
@@ -106,25 +105,3 @@ export default class Edit extends Component {
         )
     }
 }
-
-
-    // getEditMenu = async (resId) => {
-    //     try{
-    //         const res = await apiManager.getEditMenu(resId, this.state.isAdmin);
-    //         this.setState({ menu: res })
-    //     } catch (err) {
-    //         console.log('I got the catch',err);
-    //     }
-    // }
-
-        // getEditMenu = async (resId, isAdmin) => {
-    //     try {
-    //         const response = await axios.get(`http://localhost:3200/menu/edit/${resId}/?isAdmin=${this.props.isAdmin}`);
-    //         this.setState({ menu: response.data });
-    //     } catch (error) {
-    //         const res = error.response.data;
-    //         debugger
-    //         this.setState({ error: res });
-    //         return error
-    //     }
-    // }

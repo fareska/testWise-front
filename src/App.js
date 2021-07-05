@@ -11,8 +11,6 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      user: '',
-      allRestaurants: [],
       menu: { items: [] },
       update: [],
       errMessage: '',
