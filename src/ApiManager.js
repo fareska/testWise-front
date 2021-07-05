@@ -5,7 +5,7 @@ class ApiManager {
         this.pHandler = promise => promise.then(data => {
             return data.data
         }).catch(error => null)
-        this.sPath = "https://localhost:3200"
+        this.sPath = "https://localhost:3200";
     }
 
     getMenu = async (resId) => {
@@ -20,7 +20,7 @@ class ApiManager {
     getRestaurants = async (page, hasFilter) => {
         try {
             const restaurants = await axios.get(`http://localhost:3200/restaurants/${page}/?hasMenu=${hasFilter}`);
-            return restaurants.data
+            return restaurants.data;
         } catch (error) {
             return error;
         }
@@ -29,12 +29,11 @@ class ApiManager {
     getEditMenu = async (resId, isAdmin) => {
         try {
             const restaurants = await axios.get(`http://localhost:3200/menu/edit/${resId}/?isAdmin=${isAdmin}`);
-            return restaurants.data
+            return restaurants.data;
         } catch (error) {
             return error.response.data;
         }
     }
-
 }
 
-export default ApiManager
+export default ApiManager;

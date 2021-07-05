@@ -12,7 +12,9 @@ export default class Error extends Component {
                         err === "Restaurant doesn't exist"
                             ? "Restaurant doesn't exist - ERROR 404"
                             : (err === "Unauthorized" || err === "Forbidden")
-                                ? "Unauthorized - ERROR 403"
+                                ? <div style={{position:'absolute', width:'100%', height:'100%'}}>
+                                    "Unauthorized - ERROR 403"
+                                </div> 
                                 : "Page Not Found - ERROR 404"
                     }
                 </div>

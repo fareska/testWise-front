@@ -1,5 +1,6 @@
 import '../../styles/edit.css';
 import React, { Component } from 'react';
+import { Redirect, Switch } from "react-router-dom";
 import Select from './Select';
 import SelectTextInput from './SelectTextInput';
 import SelectNumInput from './SelectNumInput';
@@ -29,6 +30,7 @@ export default class Edit extends Component {
         const res = await apiManager.getEditMenu(this.props.match.params.id, this.props.isAdmin);
         if (res === 'Unauthorized' || res === 'Not Found' || res === 'Forbidden') {
             this.setState({ errMessage: res });
+            this.props.errHandler('Only admins allowed to update the menu');
         } else {
             this.setState({ menu: res });
             let selectOptions = this.generateSelectDropDown();
@@ -84,11 +86,13 @@ export default class Edit extends Component {
     }
 
     render() {
-
         return (
             <div id='editContainer'>
                 {this.state.errMessage.length > 0
-                    ? <Error err={this.state.errMessage} />
+                    ? <Switch>
+                        <Redirect to="/restaurants/0"  />
+                    </Switch>
+                    // ? <Error err={this.state.errMessage} />
                     : <div id='nestedContainer'>
                         <Select selectVal={this.getSelectedVal} selectValue={this.state.selectValue} select={this.state.selectOptions} />
                         {this.state.display ? this.handleInputDisplay() : null}

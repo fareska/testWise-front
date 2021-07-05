@@ -74,13 +74,3 @@ export default class Menu extends Component {
         )
     }
 }
-    // checkAdmin = () => {
-    //     let ans = this.props.manager.managerEmail === this.props.user;
-    //     this.setState({ isAdmin: ans });
-    // };
-
-
-        // const res = await apiManager.getMenu("4087130073430400", true);
-        // this.setState({ menu: res, loading: false })
-        // this.checkAdmin()
-        // await this.props.getMenuResId(this.props.match.params.id)

@@ -1,6 +1,7 @@
 import '../../styles/res.css';
 import React, { Component } from 'react';
 import Restaurant from './Restaurant';
+import AlertDismissible from './AlertDismissible';
 import { InputGroup } from 'react-bootstrap';
 import ApiManager from '../../ApiManager';
 import { ChevronCompactRight, ChevronCompactLeft } from 'react-bootstrap-icons';
@@ -23,12 +24,12 @@ export default class Restaurants extends Component {
 
     getRestaurants = async () => {
         const response = await apiManager.getRestaurants(this.state.page, this.state.hasMenu);
-        const totalPages = Math.ceil((response[1][0]["COUNT (*)"])/3);
+        const totalPages = Math.ceil((response[1][0]["COUNT (*)"]) / 3);
         this.setState({ allRestaurants: response[0], totalPages });
     }
 
     rightPage = () => {
-        if(this.state.page < this.state.totalPages){
+        if (this.state.page < this.state.totalPages) {
             let page = this.state.page + 1;
             this.setState({ page }, () => this.getRestaurants());
         };
@@ -40,11 +41,16 @@ export default class Restaurants extends Component {
         };
     }
 
-    checkboxHandler = () => this.setState({ hasMenu: !this.state.hasMenu }, ()=>this.getRestaurants());
+    checkboxHandler = () => this.setState({ hasMenu: !this.state.hasMenu }, () => this.getRestaurants());
 
     render() {
         return (
             <div id="container" >
+                {this.props.errMessage.length > 0
+                    ? <div>
+                        <AlertDismissible alert={this.props.errMessage} />
+                    </div>
+                    : null}
                 <div >
                     <InputGroup style={{ padding: '0px 0px 0px 10px' }} className="mb-3">
                         <InputGroup.Checkbox onClick={this.checkboxHandler} aria-label="Checkbox for following text input" />

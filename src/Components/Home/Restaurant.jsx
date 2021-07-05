@@ -21,7 +21,7 @@ export default class Restaurant extends Component {
                             <strong>Phone Number : </strong>
                             {this.props.resData.res_phone}
                             <br />
-                            <a href={this.props.resData.res_website}>Website</a>
+                            <a id="website" href={this.props.resData.res_website}>Website</a>
                         </Card.Text>
                         {
                             this.props.resData.menu_id === 1
@@ -32,7 +32,7 @@ export default class Restaurant extends Component {
                                 </Button>
                                 : <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Unfortunately the menu not available yet, please visit the restaurant website!</Tooltip>}>
                                     <span className="d-inline-block">
-                                        <Button className="button" disabled style={{ pointerEvents: 'none' }}>Menu </Button>
+                                        <Button id="disabled" className="button" disabled style={{ pointerEvents: 'none' }}>Menu </Button>
                                     </span>
                                 </OverlayTrigger>
                         }

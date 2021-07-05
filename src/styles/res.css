@@ -43,3 +43,11 @@ body {
     right: 5%;
     top: 0px;
 }
+
+#disabled {
+    background-color: rgb(91,203,245);
+}
+
+#website {
+    color: rgb(91,203,245); 
+}
